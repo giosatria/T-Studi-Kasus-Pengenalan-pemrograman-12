@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+// Struct untuk barang
+struct Barang
+{
+    string nama;
+    int harga;
+};
+
+// Fungsi menghitung total harga
+int hitungTotal(int harga, int jumlah)
+{
+    return harga * jumlah;
+}
+
+int hargaSetelahDiskon(int total){
+if (total > 100000){
+    return total * 0.10;
+}
+return 0;
+}
+
+
+int main()
+{
+    Barang daftar[6] = {{"Ayam Geprek", 8000}, {"Teh Manis Hangat", 4000}, {"Nasi", 3000}, {"Mie Ayam", 10000}, {"Es Teh Manis", 5000}, {"Ikan Bakar", 15000}};
+    int totalKeseluruhan = 0;
+    char lanjut;
+    int diskon;
+    // Tambahkan variabel baru untuk menyimpan total sebelum diskon
+    int totalSebelumDiskon = 0; 
+
+    do
+    {
+        // Tampilkan menu
+        for (int i = 0; i < 6; i++)
+        {
+            cout << i + 1 << ". " << daftar[i].nama << " - Rp." << daftar[i].harga << endl;
+        }
+
+        int pilih, jumlah;
+        cout << "Pilih menu (1-6): ";
+        cin >> pilih;
+        cout << "Jumlah: ";
+        cin >> jumlah;
+
+        int total = hitungTotal(daftar[pilih - 1].harga, jumlah);
+
+        cout << "Total " << daftar[pilih - 1].nama << " = Rp." << total << endl;
+
+        cout << "Pesan lagi? (y/n): ";
+        cin >> lanjut;
+        
+        totalKeseluruhan += total;
+        
+    } while (lanjut == 'y' || lanjut == 'Y');
+    
+    // Simpan totalKeseluruhan ke variabel baru sebelum dihitung diskon
+    totalSebelumDiskon = totalKeseluruhan;
+
+    diskon = hargaSetelahDiskon(totalKeseluruhan);
+    totalKeseluruhan = totalKeseluruhan - diskon;
+    
+    // Tampilkan total sebelum diskon
+    cout << "\nTotal sebelum diskon: Rp." << totalSebelumDiskon << endl;
+    
+    // Tampilkan informasi diskon jika ada
+    if (diskon > 0) {
+        cout << "Diskon (10%): Rp." << diskon << endl;
+        cout << "Selamat Anda Mendapatkan Diskon Sebesar 10%\n";
+    }
+
+    cout << "Total keseluruhan setelah diskon: Rp." << totalKeseluruhan << endl;
+    
+    cout << "Terima Kasih Telah berbelanja\n";
+    return 0;
+}
